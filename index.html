@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adivinha o Jogador</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Adivinha o Jogador</h1>
+        <img id="playerImage" src="assets/mock-player.jpg" alt="Jogador" style="filter: blur(8px);" />
+        <div class="controls">
+            <button onclick="reduceBlur()">I need help</button>
+        </div>
+        <div class="guess">
+            <input type="text" id="guess" placeholder="Quem é o jogador?" />
+            <button onclick="checkAnswer()">Enviar</button>
+        </div>
+        <p id="feedback"></p>
+    </div>
+    <script src="scripts/main.js"></script>
+</body>
+</html>
