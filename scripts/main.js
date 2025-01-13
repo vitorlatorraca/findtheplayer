@@ -1,17 +1,34 @@
-let blurLevel = 8; // Começa com 8px de borrão
+let jogadorAtual;
+let embacamento = 10; // O embacamento inicial
 
-function reduceBlur() {
-    if (blurLevel > 0) {
-        blurLevel -= 1; // Reduz 1px de borrão
-        document.getElementById('playerImage').style.filter = `blur(${blurLevel}px)`;
+// Função para carregar um novo jogador
+async function carregarJogador() {
+    const resposta = await fetch('http://localhost:3000/jogador');
+    const dados = await resposta.json();
+    jogadorAtual = dados.nome;
+    const imgElement = document.getElementById('imagem');
+    imgElement.src = dados.imagem;
+    imgElement.style.filter = `blur(${embacamento}px)`; // Aplica o embacamento inicial
+    document.getElementById('mensagem').innerText = 'Tente adivinhar o nome do jogador!';
+}
+
+// Função para verificar a resposta
+document.getElementById('verificar').addEventListener('click', () => {
+    const respostaUsuario = document.getElementById('resposta').value.trim();
+    const mensagem = document.getElementById('mensagem');
+
+    if (respostaUsuario.toLowerCase() === jogadorAtual.toLowerCase()) {
+        mensagem.style.color = 'green';
+        mensagem.innerText = 'Você acertou!';
+        embacamento = 10; // Resetar o embacamento
+        carregarJogador(); // Carregar um novo jogador
+    } else {
+        embacamento = Math.max(0, embacamento - 1); // Reduzir o embacamento (não deixar negativo)
+        document.getElementById('imagem').style.filter = `blur(${embacamento}px)`;
+        mensagem.style.color = 'red';
+        mensagem.innerText = 'Errou! Tente novamente.';
     }
-}
+});
 
-function checkAnswer() {
-    const userGuess = document.getElementById('guess').value.toLowerCase();
-    const correctAnswer = 'ronaldo'; // Mock para testes
-    const feedback = userGuess === correctAnswer ? 'Você acertou!' : 'Tente novamente!';
-    document.getElementById('feedback').textContent = feedback;
-}
-
-//criando node
+// Carregar o primeiro jogador
+carregarJogador();

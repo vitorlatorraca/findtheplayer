@@ -1,45 +1,63 @@
+/* Estilos de layout geral */
 body {
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(to bottom, #00aaff, #008000);
-    color: white;
-    text-align: center;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     margin: 0;
-    padding: 0;
+    background-color: #f0f0f0;
+    text-align: center;
 }
 
+/* Centraliza o conteúdo */
 .container {
-    margin-top: 50px;
+    text-align: center;
+    background-color: white;
     padding: 20px;
-}
-
-img {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 300px;
-    height: 300px;
-    border-radius: 15px;
-    margin: 20px 0;
 }
 
-button {
+/* Estilo da imagem */
+#imagem {
+    width: 100%;
+    height: auto;
+    max-width: 300px;
+    margin-bottom: 20px;
+    transition: filter 0.5s ease;
+}
+
+/* Estilo do botão */
+#verificar {
+    background-color: #4CAF50;
+    color: white;
     padding: 10px 20px;
-    margin: 5px;
-    background: #ffcc00;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: transform 0.2s ease;
+    font-size: 16px;
+    transition: background-color 0.3s;
 }
 
-button:hover {
-    transform: scale(1.1);
+#verificar:hover {
+    background-color: #45a049;
 }
 
+/* Estilo do campo de resposta */
 input {
     padding: 10px;
+    font-size: 16px;
+    width: 100%;
+    margin-bottom: 20px;
     border-radius: 5px;
     border: 1px solid #ccc;
 }
 
-#feedback {
-    font-size: 1.2em;
-    margin-top: 10px;
+/* Estilo da mensagem */
+#mensagem {
+    font-size: 18px;
+    color: red;
+    font-weight: bold;
 }
