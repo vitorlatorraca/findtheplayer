@@ -13,3 +13,5 @@ function checkAnswer() {
     const feedback = userGuess === correctAnswer ? 'Você acertou!' : 'Tente novamente!';
     document.getElementById('feedback').textContent = feedback;
 }
+
+//criando node
