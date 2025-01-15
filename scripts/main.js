@@ -1,34 +1,43 @@
-let jogadorAtual;
-let embacamento = 10; // O embacamento inicial
-
-// Função para carregar um novo jogador
-async function carregarJogador() {
-    const resposta = await fetch('http://localhost:3000/jogador');
-    const dados = await resposta.json();
-    jogadorAtual = dados.nome;
-    const imgElement = document.getElementById('imagem');
-    imgElement.src = dados.imagem;
-    imgElement.style.filter = `blur(${embacamento}px)`; // Aplica o embacamento inicial
-    document.getElementById('mensagem').innerText = 'Tente adivinhar o nome do jogador!';
-}
-
-// Função para verificar a resposta
-document.getElementById('verificar').addEventListener('click', () => {
-    const respostaUsuario = document.getElementById('resposta').value.trim();
+document.addEventListener('DOMContentLoaded', () => {
+    const imagem = document.getElementById('imagem');
+    const respostaInput = document.getElementById('resposta');
+    const verificarBtn = document.getElementById('verificar');
     const mensagem = document.getElementById('mensagem');
 
-    if (respostaUsuario.toLowerCase() === jogadorAtual.toLowerCase()) {
-        mensagem.style.color = 'green';
-        mensagem.innerText = 'Você acertou!';
-        embacamento = 10; // Resetar o embacamento
-        carregarJogador(); // Carregar um novo jogador
-    } else {
-        embacamento = Math.max(0, embacamento - 1); // Reduzir o embacamento (não deixar negativo)
-        document.getElementById('imagem').style.filter = `blur(${embacamento}px)`;
-        mensagem.style.color = 'red';
-        mensagem.innerText = 'Errou! Tente novamente.';
-    }
-});
+    let nomeJogadorCorreto = '';
+    let blurLevel = 10; // Inicia com 10% de desfoque
 
-// Carregar o primeiro jogador
-carregarJogador();
+    // Função para carregar um jogador aleatório
+    const carregarJogador = async () => {
+        try {
+            const response = await fetch('http://localhost:3000/jogador'); // API do backend
+            const jogador = await response.json();
+            imagem.src = jogador.caminho_imagem; // Atualiza a imagem
+            nomeJogadorCorreto = jogador.nome.toLowerCase(); // Nome do jogador correto
+            blurLevel = 10; // Reseta o desfoque inicial
+            imagem.style.filter = `blur(${blurLevel}px)`; // Aplica o desfoque
+        } catch (error) {
+            console.error('Erro ao carregar jogador:', error);
+            mensagem.textContent = 'Erro ao carregar jogador. Tente novamente!';
+        }
+    };
+
+    // Evento para verificar a resposta
+    verificarBtn.addEventListener('click', () => {
+        const resposta = respostaInput.value.toLowerCase().trim();
+        if (resposta === nomeJogadorCorreto) {
+            mensagem.textContent = 'Parabéns! Você acertou!';
+            mensagem.style.color = 'green';
+            imagem.style.filter = 'blur(0px)'; // Remove o desfoque
+        } else {
+            mensagem.textContent = 'Errou! Tente novamente.';
+            mensagem.style.color = 'red';
+            blurLevel = Math.max(blurLevel - 1, 0); // Reduz o desfoque (limite 0)
+            imagem.style.filter = `blur(${blurLevel}px)`;
+        }
+        respostaInput.value = ''; // Limpa o campo de resposta
+    });
+
+    // Carregar o primeiro jogador ao abrir a página
+    carregarJogador();
+});
