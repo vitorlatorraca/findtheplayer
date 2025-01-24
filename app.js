@@ -28,7 +28,7 @@ connection.connect(err => {
 // Servir arquivos estáticos
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
-// Endpoint para obter um jogador aleatório
+// Endpoint para obter um jogador aleatório.
 app.get('/jogador', (req, res) => {
     const query = `
         SELECT jogadores.nome, imagens.caminho_imagem
