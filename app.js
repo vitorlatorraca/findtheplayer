@@ -52,7 +52,7 @@ app.get('/jogador', (req, res) => {
 });
 
 // Iniciar o servidor
-const PORT = 3000;
+const PORT = 5500;
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
 });
