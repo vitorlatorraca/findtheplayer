@@ -2,6 +2,7 @@ const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
 const path = require('path');
+require('dotenv').config(); // Para carregar variáveis de ambiente
 
 const app = express();
 app.use(cors());
@@ -9,11 +10,11 @@ app.use(express.json());
 
 // Configuração do banco de dados
 const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'georgiancollege!!10',
-    database: 'game1',
-    port: '3306'
+    host: process.env.DB_HOST || 'localhost',
+    user: process.env.DB_USER || 'root',
+    password: process.env.DB_PASSWORD || 'georgiancollege!!10',
+    database: process.env.DB_NAME || 'game1',
+    port: process.env.DB_PORT || '3306'
 });
 
 // Conexão com o banco de dados
@@ -28,7 +29,7 @@ connection.connect(err => {
 // Servir arquivos estáticos
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
-// Endpoint para obter um jogador aleatório.
+// Endpoint para obter um jogador aleatório
 app.get('/jogador', (req, res) => {
     const query = `
         SELECT jogadores.nome, imagens.caminho_imagem
@@ -52,7 +53,8 @@ app.get('/jogador', (req, res) => {
 });
 
 // Iniciar o servidor
-const PORT = 5500;
+const PORT = process.env.PORT || 5500;
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
+    console.log(`Teste o endpoint: http://localhost:${PORT}/jogador`);
 });
