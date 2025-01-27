@@ -9,7 +9,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Função para carregar um jogador aleatório
     const carregarJogador = async () => {
         try {
-            const response = await fetch('http://localhost:3000/jogador');
+            const response = await fetch('http://localhost:5500/jogador');
+            if (!response.ok) {
+                throw new Error('Erro ao obter jogador');
+            }
             const jogador = await response.json();
 
             // Atualiza a imagem e a resposta correta
