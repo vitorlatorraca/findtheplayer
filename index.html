@@ -3,30 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jogo de Adivinhação - Quem é esse jogador?</title>
+    <title>Mago Games</title>
     <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Jogo de Adivinhação</h1>
-        <p>Você consegue adivinhar quem é o jogador pela imagem? Digite o nome e clique no botão para conferir!</p>
-
-        <!-- Imagem do jogador -->
-        <div class="imagem-container">
-            <img id="imagem" class="imagem" src="/assets/placeholder.jpg" alt="Imagem do jogador">
+    <header>
+        <h1>Mago Games</h1>
+        <p>Escolha um jogo e divirta-se!</p>
+    </header>
+    
+    <main>
+        <div id="jogos-container" class="grid-container">
+            <div class="jogo">
+                <img src="assets/placeholder.jpg" alt="Jogo de Adivinhação">
+                <h2>Jogo de Adivinhação</h2>
+                <p>Você consegue adivinhar quem é o jogador?</p>
+                <a href="adivinhacao.html" class="botao">Jogar</a>
+            </div>
+            <div class="jogo">
+                <img src="assets/quiz.jpg" alt="Quiz de Futebol">
+                <h2>Quiz de Futebol</h2>
+                <p>Teste seus conhecimentos sobre futebol!</p>
+                <a href="quiz.html" class="botao">Jogar</a>
+            </div>
+            <div class="jogo">
+                <img src="assets/memoria.jpg" alt="Jogo da Memória">
+                <h2>Jogo da Memória</h2>
+                <p>Combine os jogadores corretamente!</p>
+                <a href="memoria.html" class="botao">Jogar</a>
+            </div>
+            <div class="jogo">
+                <img src="assets/puzzle.jpg" alt="Jogo de Puzzle">
+                <h2>Puzzle de Futebol</h2>
+                <p>Monte as peças e descubra o jogador!</p>
+                <a href="puzzle.html" class="botao">Jogar</a>
+            </div>
+            <div class="jogo">
+                <img src="assets/corrida.jpg" alt="Corrida de Futebol">
+                <h2>Corrida de Futebol</h2>
+                <p>Desafie seus amigos numa corrida épica!</p>
+                <a href="corrida.html" class="botao">Jogar</a>
+            </div>
+            <div class="jogo">
+                <img src="assets/clicker.jpg" alt="Clicker de Futebol">
+                <h2>Clicker de Futebol</h2>
+                <p>Clique o máximo possível para vencer!</p>
+                <a href="clicker.html" class="botao">Jogar</a>
+            </div>
+            <div class="jogo">
+                <img src="assets/penaltis.jpg" alt="Desafio de Pênaltis">
+                <h2>Desafio de Pênaltis</h2>
+                <p>Acerte o gol no momento certo!</p>
+                <a href="penaltis.html" class="botao">Jogar</a>
+            </div>
+            <div class="jogo">
+                <img src="assets/estrategia.jpg" alt="Jogo de Estratégia">
+                <h2>Jogo de Estratégia</h2>
+                <p>Gerencie seu time e vença campeonatos!</p>
+                <a href="estrategia.html" class="botao">Jogar</a>
+            </div>
         </div>
-
-        <!-- Input para resposta -->
-        <div class="input-container">
-            <input type="text" id="resposta" placeholder="Digite o nome do jogador">
-            <button id="verificar">Verificar</button>
-        </div>
-
-        <!-- Mensagem de feedback -->
-        <p id="mensagem"></p>
-    </div>
-
-    <!-- Adicionando JavaScript -->
+    </main>
+    
     <script src="scripts/main.js"></script>
 </body>
 </html>

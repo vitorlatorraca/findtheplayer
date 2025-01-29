@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo de Adivinhação - Quem é esse jogador?</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Jogo de Adivinhação</h1>
+        <p>Você consegue adivinhar quem é o jogador pela imagem? Digite o nome e clique no botão para conferir!</p>
+
+        <!-- Imagem do jogador -->
+        <div class="imagem-container">
+            <img id="imagem" class="imagem" src="/assets/placeholder.jpg" alt="Imagem do jogador">
+        </div>
+
+        <!-- Input para resposta -->
+        <div class="input-container">
+            <input type="text" id="resposta" placeholder="Digite o nome do jogador">
+            <button id="verificar">Verificar</button>
+        </div>
+
+        <!-- Mensagem de feedback -->
+        <p id="mensagem"></p>
+    </div>
+
+    <!-- Adicionando JavaScript -->
+    <script src="scripts/main.js"></script>
+</body>
+</html>
