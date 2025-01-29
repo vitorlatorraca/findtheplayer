@@ -1,60 +1,25 @@
 const express = require('express');
-const mysql = require('mysql2');
-const cors = require('cors');
 const path = require('path');
-require('dotenv').config(); // Para carregar variáveis de ambiente
+const jogadorRoutes = require('./routes/jogadorRoutes');
 
 const app = express();
-app.use(cors());
-app.use(express.json());
 
-// Configuração do banco de dados
-const connection = mysql.createConnection({
-    host: process.env.DB_HOST || 'localhost',
-    user: process.env.DB_USER || 'root',
-    password: process.env.DB_PASSWORD || 'georgiancollege!!10',
-    database: process.env.DB_NAME || 'game1',
-    port: process.env.DB_PORT || '3306'
+// Servir arquivos estáticos (imagens, estilos, scripts, jogos)
+app.use('/assets', express.static(path.join(__dirname, '../assets')));
+app.use('/styles', express.static(path.join(__dirname, '../styles')));
+app.use('/scripts', express.static(path.join(__dirname, '../scripts')));
+app.use('/jogos', express.static(path.join(__dirname, '../jogos')));
+
+// Rotas
+app.use('/jogador', jogadorRoutes);
+
+// Página inicial
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../index.html'));
 });
 
-// Conexão com o banco de dados
-connection.connect(err => {
-    if (err) {
-        console.error('Erro ao conectar ao banco de dados:', err.message);
-        process.exit(1);
-    }
-    console.log('Conexão com o banco de dados bem-sucedida!');
-});
-
-// Servir arquivos estáticos
-app.use('/assets', express.static(path.join(__dirname, 'assets')));
-
-// Endpoint para obter um jogador aleatório
-app.get('/jogador', (req, res) => {
-    const query = `
-        SELECT jogadores.nome, imagens.caminho_imagem
-        FROM jogadores
-        INNER JOIN imagens ON jogadores.id = imagens.jogador_id
-        ORDER BY RAND() LIMIT 1;
-    `;
-
-    connection.query(query, (err, results) => {
-        if (err) {
-            console.error('Erro ao executar consulta:', err.message);
-            return res.status(500).send('Erro ao obter jogador.');
-        }
-
-        if (results.length === 0) {
-            return res.status(404).send('Nenhum jogador encontrado.');
-        }
-
-        res.json(results[0]); // Retorna o jogador aleatório
-    });
-});
-
-// Iniciar o servidor
-const PORT = process.env.PORT || 5500;
+// Iniciar servidor
+const PORT = 5500;
 app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`);
-    console.log(`Teste o endpoint: http://localhost:${PORT}/jogador`);
+    console.log(`🚀 Servidor rodando em http://localhost:${PORT}`);
 });
